@@ -74,7 +74,7 @@ public class WeatherService {
 	}
 
 	/**
-	 * Genera le previsioni fittizie per i test in fase di sviluppo
+	 * Genera le previsioni fittizie (servono per i test in fase di sviluppo)
 	 * 
 	 * @param cities
 	 * @param seedingDate
@@ -162,7 +162,7 @@ public class WeatherService {
 		// creiamo le statistiche considerando solo i dati filtrati prima
 		if (!climateForStatistic.isEmpty()) {
 			for (CityModel city : cities) {
-				// dati forecast della citta'
+				// dati climate della citta'
 				List<ClimateData> climateDataForCurrentCity = new ArrayList<>();
 				for (ClimateData cityClimate : climateForStatistic) {
 					String climateCityName = cityClimate.getCityName();
@@ -175,7 +175,10 @@ public class WeatherService {
 				if (climateDataForCurrentCity.isEmpty()) {
 					continue;
 					}
-				// calcolo statistiche
+				/** 
+				 calcolo statistiche (temperatura media, massima e minima, la varianza)
+				 */
+				 
 				Double temperatureSum = 0.0;
 				Double temperatureMin = climateDataForCurrentCity.get(0).getTemperatureMin();
 				Double temperatureMax = climateDataForCurrentCity.get(0).getTemperatureMax();
@@ -191,7 +194,7 @@ public class WeatherService {
 				Double avgTemp = !climateDataForCurrentCity.isEmpty() ? temperatureSum / climateDataForCurrentCity.size() : null;
 				Double varTemp = temperatureMax - temperatureMin;
 
-				// inserisco le statistiche per citta' corrente
+				// inseriamo le statistiche per citta' 
 				ClimateStatistics cityStatistics = new ClimateStatistics();
 				cityStatistics.setCityName(city.getName());
 				cityStatistics.setStart(this.GetDateString(startDate));

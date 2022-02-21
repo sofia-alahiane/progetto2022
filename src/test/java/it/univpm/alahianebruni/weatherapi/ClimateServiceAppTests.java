@@ -58,7 +58,7 @@ public class ClimateServiceAppTests {
 	
 	@Test
 	void getStatisticsForTest() throws Exception {
-		List<ClimateStatistics> climateStat = this.climateController.getStatisticsFor("Milano", null, null);
+		List<ClimateStatistics> climateStat = this.climateController.getStatisticsFor("Ancona", null, null);
 		assertNotNull(climateStat);
 	}
 }
