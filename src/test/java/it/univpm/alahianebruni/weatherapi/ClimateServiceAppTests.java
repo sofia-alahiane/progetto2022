@@ -15,7 +15,11 @@ import it.univpm.alahianebruni.openweather.climate.ClimateStatistics;
 import it.univpm.alahianebruni.weatherapi.controllers.CityController;
 import it.univpm.alahianebruni.weatherapi.controllers.ClimateController;
 
-
+/**Questa classe testa alcuni metodi del controller
+ * 
+ * @author sofialahiane
+ *
+ */
 
 @SpringBootTest
 public class ClimateServiceAppTests {
