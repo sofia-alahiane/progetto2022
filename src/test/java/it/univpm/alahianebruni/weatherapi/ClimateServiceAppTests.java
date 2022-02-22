@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import it.univpm.alahianebruni.openweather.city.CityModel;
 import it.univpm.alahianebruni.openweather.climate.ClimateData;
 import it.univpm.alahianebruni.openweather.climate.ClimateStatistics;
-import it.univpm.alahianebruni.weatherapi.controllers.CityController;
 import it.univpm.alahianebruni.weatherapi.controllers.ClimateController;
 
 /**Questa classe testa alcuni metodi del controller
@@ -24,8 +23,6 @@ import it.univpm.alahianebruni.weatherapi.controllers.ClimateController;
 @SpringBootTest
 public class ClimateServiceAppTests {
 
-	@Autowired
-    private CityController cityController;
 
 	@Autowired
     private ClimateController climateController;
@@ -36,11 +33,6 @@ public class ClimateServiceAppTests {
 		assertEquals("Venezia", test.getName());
 	}
 
-	@Test
-	void citiesLoadTest() throws Exception {
-        List<CityModel> cities = this.cityController.getCities();
-        assertNotNull(cities);
-	}
 
 	@Test
 	void getClimateForTest() throws Exception{
@@ -51,13 +43,13 @@ public class ClimateServiceAppTests {
 	@Test
 	void startAutoSearchClimateTest() {
         String result = this.climateController.startAutoSearchClimate("Milano,Venezia");
-        assertEquals("Climate autolookup started...", result);
+        assertEquals("Start searching...", result);
 	}
 
 	@Test
 	void stopAutoSearchClimateTest() {
         String result = this.climateController.stopAutoSearchClimate();
-        assertEquals("Climate autolookup stopped...", result);
+        assertEquals("Stop searching...", result);
 	}
 	
 	@Test

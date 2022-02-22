@@ -8,7 +8,7 @@ public class ClimateThread implements Runnable {
 	private boolean doStop = false;
 
 //    private int timeToSleep = 1 * 60 * 60 * 1000;   // 1h di fermo (1 ora x 60 minuti x 60 secondi x 1000 millisecondi)
-	private int timeToSleep = 5 * 60 * 1000; // ogni 5 minuti
+	private int timeToSleep = 60 * 60 * 1000; // ogni ora
 
 	private WeatherService weatherService;
 	private String cities;

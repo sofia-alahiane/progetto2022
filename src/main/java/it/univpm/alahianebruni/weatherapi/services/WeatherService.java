@@ -57,7 +57,8 @@ public class WeatherService {
 		for(CompletableFuture<Climate> f : cfl) {
 			CompletableFuture.anyOf(f).join();
 			Climate fcg = f.get();
-
+			if (fcg == null) continue;
+			
 			ClimateData fc = new ClimateData();
 			fc.setCityName(fcg.getName());
 			fc.setDescription(fcg.getWeather().get(0).getDescription());
@@ -97,7 +98,7 @@ public class WeatherService {
 		this.climateThread = new ClimateThread(this, cities);
 		Thread t = new Thread(this.climateThread);
 		t.start();
-		System.out.println("Begin autolookup forecast...");
+		System.out.println("Start searching...");
 	}
 
 	 /**
@@ -106,7 +107,7 @@ public class WeatherService {
 	public void stopAutoSearchClimateFor() {
 		try {
 			if (null != this.climateThread) this.climateThread.doStop();
-			System.out.println("End autolookup forecast...");	
+			System.out.println("Stop searching...");	
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -117,7 +118,7 @@ public class WeatherService {
 	 */
 	public void saveClimateDataList(List<ClimateData> ClimateDataList) {
 		this.climateHistoryRepository.insertClimateHistory(ClimateDataList);
-		System.out.println("Forecasts list successfully saved!");
+		System.out.println("Climate Data list successfully saved!");
 	}
 
 	public List<ClimateStatistics> getStatisticsFor(

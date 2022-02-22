@@ -35,7 +35,7 @@ public class ClimateController {
 			@RequestParam(name="cities") String cities
 			) {
 		this.weatherService.startAutoSearchClimateFor(cities);
-		return "Climate autolookup started...";
+		return "Start searching...";
 	}
 	
 
@@ -47,7 +47,7 @@ public class ClimateController {
 	@PostMapping("/search/stop")
 	public String stopAutoSearchClimate() {
 		this.weatherService.stopAutoSearchClimateFor();
-		return "Climate autolookup stopped...";
+		return "Stop searching...";
 	}
 
 	@GetMapping("/statistics")

@@ -27,8 +27,13 @@ public class ClimateApiCall {
 	public CompletableFuture<Climate> getClimateForCity(CityModel city) {
 		String url = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&lang=it&units=metric&appid=%s",
 				city.getName(), this.apiKey);
+		try {
 		Climate results = restTemplate.getForObject(url, Climate.class);
 		return CompletableFuture.completedFuture(results);
+	} catch (Exception ex) {
+		System.err.println(ex);
+		return null;
+	}
 	}
 
 }
