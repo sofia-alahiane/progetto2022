@@ -47,13 +47,13 @@ public class ClimateServiceAppTests {
 	@Test
 	void startAutoSearchClimateTest() {
         String result = this.climateController.startAutoSearchClimate("Milano,Venezia");
-        assertEquals("Forecast autolookup started...", result);
+        assertEquals("Climate autolookup started...", result);
 	}
 
 	@Test
 	void stopAutoSearchClimateTest() {
         String result = this.climateController.stopAutoSearchClimate();
-        assertEquals("Forecast autolookup stopped...", result);
+        assertEquals("Climate autolookup stopped...", result);
 	}
 	
 	@Test

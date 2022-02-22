@@ -38,7 +38,7 @@ public class WeatherService {
 	public WeatherService(ClimateApiCall climateApiCall) {
 		this.climateApiCall = climateApiCall;
 	}
-		
+	
 	public List<ClimateData> getClimateFor(String cities) throws ExecutionException, InterruptedException {
 		List<CityModel> cityList = getCityModel(cities);
 		return (null == cityList || cityList.isEmpty()) ? null : this.GetClimate(cityList);
