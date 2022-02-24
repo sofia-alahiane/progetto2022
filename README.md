@@ -17,7 +17,7 @@ L'applicazione ClimateService permette di visualizzare i principali dati meteoro
 # Introduzione
 
 
-**ClimateService**, attraverso delle chiamate all’API del servizio on-line [www.openweathermap.org](https://openweathermap.org/), permette di visualizzare i dati meteorologici come le temperature massima e minima, la temperatura percepita ed una descrizione generale del tempo. Una volta fatta una specifica chiamata POST (che vedremo in dettaglio nella sezione Rotte) dal cliente (es.Postman), l'applicazione iniziarà a raccogliere i dati sulla/sulle città d'interesse. Successivamente si potrà richiedere le statistiche con la possibilità di personalizzare l'arco temporaneo su cui verrano eseguiti i calcoli statistici. <br/>
+**ClimateService**, attraverso delle chiamate all’API del servizio on-line [www.openweathermap.org](https://openweathermap.org/), permette di visualizzare i dati meteorologici come le temperature massima e minima, la temperatura percepita ed una descrizione generale del tempo. Una volta fatta una specifica chiamata POST (che vedremo in dettaglio nella sezione Rotte) dal cliente (es.Postman), l'applicazione iniziarà a raccogliere i dati sulla/sulle città d'interesse. Successivamente si potrà richiedere le statistiche con la possibilità di personalizzare l'arco temporale su cui verrano eseguiti i calcoli statistici. <br/>
 Effettuando le chiamate all'API per "nome della città" non abbiamo nessun vincolo per quanto riguarda il numero delle città disponibili, tuttavia le città scelte devono essere supportati dal servizio [www.openweathermap.org](https://openweathermap.org/). 
 
 
@@ -45,7 +45,8 @@ Per il corretto funzionamento dell'applicazione ClimateService Vi chiediamo di i
 
 # Diagrammi UML
 Classes Diagram
-![](./UML/UML progetto.png)
+
+[Scarica qui l'UML delle classi del progetto ClimateService in formato pdf](https://github.com/sofia-alahiane/progetto2022/blob/main/UML/UML%20progetto.pdf)
 
 
 # Rotte
@@ -118,7 +119,7 @@ In risposta otteniamo : `Stop searching...`
 <!-- blank line -->
 <!-- blank line -->
 
-[4]| ` GET ` | `http://localhost:8081/climate/statistics?cities=Ancona` | 
+| ` GET ` | `http://localhost:8081/climate/statistics?cities=Ancona` | 
 
 **Parametri**
 
@@ -126,14 +127,15 @@ In risposta otteniamo : `Stop searching...`
 
 <!-- blank line -->
 
-<br/>E' possibile inserire altre due variabili opzionali nella Query String:<br/>
+E' possibile inserire altre due variabili opzionali nella Query String:<br/>
 
 - start: è la data d’inizio dell'arco temporale per la statistica (formato yyyy/MM/dd HH:mm:ss)
 - end:  è la data di fine dell'arco temporale per la statistica (formato yyyy/MM/dd HH:mm:ss)
 
 Se i parametri opzionali non vengono inseriti il lasso di tempo di default va da 00:00:00 a 23:59:59 del giorno corrente.<br/>
 
-L'esempio completo: `http://localhost:8081/climate/statistics?cities=Ancona&start=DataInizio&end=DataFine` <br/>
+L'esempio completo: <br/>
+`http://localhost:8081/climate/statistics?cities=Ancona&start=DataInizio&end=DataFine` <br/>
 
 Questa rotta recupera i dati statistici come temperatura media, massima e minima e la varianza per l'arco temporale scelto. <br/>
 
