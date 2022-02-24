@@ -1,23 +1,163 @@
-# progetto2022
-Il nostro progetto realizza un'applicazione web che raccoglie e mostra all'utente i dati di temperatura reale,percepita, minima e massima di una città attraverso delle chiamate alla API offerta dalla OpenWeather (https://openweathermap.org/), la API utilizzata in particolare si trova nella classe "ClimateApiCall" ed è la seguente "https://api.openweathermap.org/data/2.5/weather?q=%s&lang=it&units=metric&appid=%s".
-Principalmente l'applicazione sfrutta degli oggetti "CityModel" che fungono da "carta d'Identità" delle città che analizzeremo e degli oggetti "ClimateData" che invece raccoglieranno tutti i dati indicati poc'anzi oltre che al nominativo della città stessa.
-Questa applicazione prevede numerosi metodi, tuttavia i principali sono i seguenti:
-		
-		Metodi del "services"
-			1)"getClimate(List<CityModel> cities)"
-				Questo metodo associa i valori dei dati indicati per la città richiesta ad un oggetto "ClimateData", per 				fare ciò sfrutteremo la chiamata all'API;
-				
-			2)"createStatistics(List<CityModel> cities, Date 	startDate, Date endDate)"
-				Questo metodo prepara la statistica (va completato);
-		
-		Metodi del "controllers"
-			1)"getClimateFor(String city)"
-				Questo metodo restituisce all'utente le condizioni climatiche (nonchè le varie temperaure) della città 				richiesta, esso sfrutta il metodo "getClimateFor(String city)" del package "Services", un metodo che 				richiama il metodo "getClimate(List<CityModel> cities)" descritto precedentemente tra i metodi del 				"service";
-			2)"getStatisticsFor(String cities, String startDate, String endDate)"
-				Come per l'altro metodo del controllers indicato questo restituisce all'utente le stastiche della città 				richiesta. Questo metodo utilizza il metodo "getStatisticFor(String city, String startDate, String 				endDate)" del package "Services", questo è un metodo che trova l'oggetto "CityModel" associato alla città 				richiesta così da porter chiamare correttamente il metodo "createStatistics(List<CityModel> cities, Date 				startDate, Date endDate)" descritto precedentemente tra i metodi del "service";
-		
-		Metodo per la chiamata dell'API
-			1)"getClimateForCity(CityModel city)"
-				Questo metodo utlizza il tipo di dato "CompletableFuture<Climate>" per affrontare la chiamata API. Questo 				infatti, attraverso il metodo "restTemplate.getForObject(url, Climate.class", gestisce l'assegnazione di 				tutte le coppie variabile/valore necessarie prese dall'url alle corrispondenti coppie nell'ogggetto 				"Climate";
-				
-Ognuna delle parti ha costantemente aiutato l'altra perciò trovo difficile riuscire ad indicare una vera separazione del compiti, non è una reale distizione dei compiti tuttavia posso affermare che Bruni Daniele ha realizzato il ReadMe e parte della classe "WeatherService", mentre Sofiaya Alahiane ha realizzato l'uml e la parte della classe "WeatherService" legata alla statistica.
+<h1 align="center"> <font size="6">ClimateService</font> </h1>
+
+
+<p align="center">
+L'applicazione ClimateService permette di visualizzare i principali dati meteorologici di una o più città, generare e visualizzare le statistiche.
+</p>
+
+## **Contenuti**
+1. [Introduzione](#introduzione)
+2. [Installazione](#installazione)
+3. [Configurazione](#configurazione)
+4. [Diagrammi Uml](#diagrammi-uml)
+5. [Rotte](#rotte)
+6. [Autori](#autori)
+
+#Introduzione
+
+
+**ClimateService**, attraverso delle chiamate all’API del servizio on-line [www.openweathermap.org](https://openweathermap.org/), permette di visualizzare i dati meteorologici come le temperature massima e minima, la temperatura percepita ed una descrizione generale del tempo. Una volta fatta una specifica chiamata POST (che vedremo in dettaglio nella sezione Rotte) dal cliente (es.Postman), l'applicazione iniziarà a raccogliere i dati sulla/sulle città d'interesse. Successivamente si potrà richiedere le statistiche con la possibilità di personalizzare l'arco temporaneo su cui verrano eseguiti i calcoli statistici. <br/>
+Effettuando le chiamate all'API per "nome della città" non abbiamo nessun vincolo per quanto riguarda il numero delle città disponibili, tuttavia le città scelte devono essere supportati dal servizio [www.openweathermap.org](https://openweathermap.org/). 
+
+
+#Installazione
+ ClimateService è installabile dalla riga di comando digitando:  
+ 
+```
+git clone https://github.com/sofia-alahiane/progetto2022
+```
+
+
+#Configurazione
+Per il corretto funzionamento dell'applicazione ClimateService Vi chiediamo di impostare alcuni parametri nel file src/main/resources/application.properties :
+
+<font size="5">server.port</font>
+
++ indica la porta su cui sta operando la nostra app, impostata di default sul valore **8081**.
+
+<font size="5">openweatherApiKey</font>
+
+- rappresenta la API Key fornita da [www.openweathermap.org](https://openweathermap.org/). Per ottenere la chiave bisogna iscriversi sul sito [www.openweathermap.org](https://openweathermap.org/). Abbiamo provveduto ad inserire una chiave provvisoria per permmetterVi di testare l'applicazione. 
+
+
+
+
+#Diagrammi UML
+Classes Diagram
+![](./UML/UML progetto.png)
+
+
+#Rotte
+Nella tabella sottostante abbiamo elencato tutti gli URL di accesso alla nostra app:
+
+| Metodo | Indirizzo |
+|--------|--------|
+| ` GET ` | `http://localhost:8081/climate?cities=Bari, Milano`| 
+| ` POST ` | `http://localhost:8081/climate/search/start?cities=Kiev` |
+| ` POST ` | `http://localhost:8081/climate/search/stop` | 
+| ` GET ` | `http://localhost:8081/climate/statistics?cities=Ancona` | 
+
+<!-- blank line -->
+<!-- blank line -->
+
+Vediamo in dettaglio come funziona ognuna di esse: 
+
+<!-- blank line -->
+<!-- blank line -->
+
+| ` GET ` | `http://localhost:8081/climate?cities=Kiev`|
+
+**Parametri**
+
+- cities: Nome di una o più citta separati dalla virgola. 
+
+Restituisce i dati meteorologici in tempo reale delle città passate in Query String. <br/>
+Ecco l'esempio del JSONArray di risposta:
+
+```
+{
+        "cityName": "Kiev",
+        "climateDate": "2022/02/24 18:13:00",
+        "description": "cielo coperto",
+        "temperature": 4.05,
+        "feelsLikeTemperature": 4.05,
+        "temperatureMin": 3.14,
+        "temperatureMax": 4.29
+    }
+```
+![](./UML/flow/getClimateFor.png)
+
+<!-- blank line -->
+<!-- blank line -->
+
+| ` POST ` | `http://localhost:8081/climate/search/start?cities=Ancona` |
+
+**Parametri**
+
+- cities: Nome di una o più citta separati dalla virgola. 
+
+Fa partire il caricamento dei dati meteorologici facendo delle chiamate all'API ogni ora.<br/>
+In risposta otteniamo : `Start searching...`
+
+<!-- blank line -->
+<!-- blank line -->
+<!-- blank line -->
+
+![](./UML/flow/AutoSearchClimateFor.png)
+
+<!-- blank line -->
+<!-- blank line -->
+<!-- blank line -->
+
+| ` POST ` | `http://localhost:8081/climate/search/stop` | 
+
+- Ferma il caricamento dei dati. <br/>
+In risposta otteniamo : `Stop searching...`
+
+<!-- blank line -->
+<!-- blank line -->
+
+[4]| ` GET ` | `http://localhost:8081/climate/statistics?cities=Ancona` | 
+
+**Parametri**
+
+- cities: Nome di una o più citta separati dalla virgola. 
+
+<!-- blank line -->
+
+<br/>E' possibile inserire altre due variabili opzionali nella Query String:<br/>
+
+- start: è la data d’inizio dell'arco temporale per la statistica (formato yyyy/MM/dd HH:mm:ss)
+- end:  è la data di fine dell'arco temporale per la statistica (formato yyyy/MM/dd HH:mm:ss)
+
+Se i parametri opzionali non vengono inseriti il lasso di tempo di default va da 00:00:00 a 23:59:59 del giorno corrente.<br/>
+
+L'esempio completo: `http://localhost:8081/climate/statistics?cities=Ancona&start=DataInizio&end=DataFine` <br/>
+
+Questa rotta recupera i dati statistici come temperatura media, massima e minima e la varianza per l'arco temporale scelto. <br/>
+
+Ecco l'esempio del JSONArray di risposta:
+
+
+```
+ {
+        "cityName": "Ancona",
+        "start": "2022/02/24 00:00:00",
+        "end": "2022/02/24 23:59:59",
+        "avgTemperature": 10.37,
+        "varTemperature": 3.959999999999999,
+        "maxTemperature": 13.04,
+        "minTemperature": 9.08
+    }
+```
+![](./UML/flow/getStatisticsFor.png)
+
+<!-- blank line -->
+<!-- blank line -->
+
+# Autori
+Progetto realizzato da:
+- Sofiya Alahiane (50%)
+- Daniele Bruni (50%)
+
+
