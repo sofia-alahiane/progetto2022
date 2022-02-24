@@ -14,14 +14,14 @@ L'applicazione ClimateService permette di visualizzare i principali dati meteoro
 6. [Autori](#autori)
 
 
-##Introduzione
+# Introduzione
 
 
 **ClimateService**, attraverso delle chiamate all’API del servizio on-line [www.openweathermap.org](https://openweathermap.org/), permette di visualizzare i dati meteorologici come le temperature massima e minima, la temperatura percepita ed una descrizione generale del tempo. Una volta fatta una specifica chiamata POST (che vedremo in dettaglio nella sezione Rotte) dal cliente (es.Postman), l'applicazione iniziarà a raccogliere i dati sulla/sulle città d'interesse. Successivamente si potrà richiedere le statistiche con la possibilità di personalizzare l'arco temporaneo su cui verrano eseguiti i calcoli statistici. <br/>
 Effettuando le chiamate all'API per "nome della città" non abbiamo nessun vincolo per quanto riguarda il numero delle città disponibili, tuttavia le città scelte devono essere supportati dal servizio [www.openweathermap.org](https://openweathermap.org/). 
 
 
-##Installazione
+# Installazione
  ClimateService è installabile dalla riga di comando digitando:  
  
 ```
@@ -29,7 +29,7 @@ git clone https://github.com/sofia-alahiane/progetto2022
 ```
 
 
-#Configurazione
+# Configurazione
 Per il corretto funzionamento dell'applicazione ClimateService Vi chiediamo di impostare alcuni parametri nel file src/main/resources/application.properties :
 
 <font size="5">server.port</font>
@@ -43,12 +43,12 @@ Per il corretto funzionamento dell'applicazione ClimateService Vi chiediamo di i
 
 
 
-#Diagrammi UML
+# Diagrammi UML
 Classes Diagram
 ![](./UML/UML progetto.png)
 
 
-#Rotte
+# Rotte
 Nella tabella sottostante abbiamo elencato tutti gli URL di accesso alla nostra app:
 
 | Metodo | Indirizzo |
