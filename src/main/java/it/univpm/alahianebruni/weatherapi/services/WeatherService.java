@@ -39,7 +39,10 @@ public class WeatherService {
 		this.climateApiCall = climateApiCall;
 	}
 	
+	
+	
 	public List<ClimateData> getClimateFor(String cities) throws ExecutionException, InterruptedException {
+		//mapping città separati da virgola in una lista d'istanze di tipo <CityModel>
 		List<CityModel> cityList = getCityModel(cities);
 		return (null == cityList || cityList.isEmpty()) ? null : this.GetClimate(cityList);
 	}
@@ -74,24 +77,6 @@ public class WeatherService {
 		return fcl;
 	}
 
-	/**
-	 * Genera le previsioni fittizie (servono per i test in fase di sviluppo)
-	 * 
-	 * @param cities
-	 * @param seedingDate
-	 * @return List<ClimateData>
-	 */
-	private List<ClimateData> GetSeededClimate(List<CityModel> cities, Date seedingDate) {
-		List<ClimateData> fcl = new ArrayList<ClimateData>();
-		ClimateData fc;
-		for(CityModel city : cities) {
-			fc= new ClimateData();
-			// TODO
-			fcl.add(fc);
-		}
-		return fcl;
-	}
-	
 	
 	public void startAutoSearchClimateFor(String cities) {
 		this.stopAutoSearchClimateFor();
@@ -114,7 +99,7 @@ public class WeatherService {
 	}
 
 	/** 
-	 * Salva sia i dati reali che fittizi nella memoria
+	 * Salva i dati in memoria
 	 */
 	public void saveClimateDataList(List<ClimateData> ClimateDataList) {
 		this.climateHistoryRepository.insertClimateHistory(ClimateDataList);
